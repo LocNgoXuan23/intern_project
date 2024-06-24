@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 def calc_dis_p2p(p1, p2):
     sum_square = 0
     for d1, d2 in zip(p1, p2):
@@ -52,23 +54,12 @@ samples = [[1, 3], [7, 6], [2, 2], [8, 6], [9, 6], [1, 1], [7, 5], [8, 5], [2, 3
 labels = len(samples) * [-1]
 clusters = [[3, 7], [4, 3]]
 
-# # iteration 1
-# samples, labels, clusters = kmean_iteration(samples, labels, clusters)
-# print(clusters)
-
-# # iteration 2
-# samples, labels, clusters = kmean_iteration(samples, labels, clusters)
-# print(clusters)
-
-# # iteration 3
-# samples, labels, clusters = kmean_iteration(samples, labels, clusters)
-# print(clusters)
-
-current_cluster = clusters
+current_cluster = deepcopy(clusters)
 while True:
     samples, labels, clusters = kmean_iteration(samples, labels, clusters)
     if current_cluster == clusters:
         break
-    current_cluster = clusters
+    current_cluster = deepcopy(clusters)
 
 print(f'Final clusters: {clusters}')
+print(f'Labels: {labels}')
